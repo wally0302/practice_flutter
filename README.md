@@ -1,16 +1,5 @@
-# homework
+# flutter 學習紀錄 
+- 這是練習 flutter 的一個紀錄過程 ，順便練習使用 github !
+參考影片 :https://www.youtube.com/watch?v=HFyBIYTJBsA&list=PLt85kdOx9ozWwcy6FVOquYNMah12FTWbP&index=5&ab_channel=YangHans
 
-my first homework
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
