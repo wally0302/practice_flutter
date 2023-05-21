@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter/rendering.dart';
+
 // TODO:
 // FIXME:
 
 void main() {
-  return runApp(MaterialApp(home: new Homepage2()));
+  return runApp(MaterialApp(home: new HomePage3()));
 }
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
@@ -47,6 +49,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+//---------------------------------------------------------------------//
 class Homepage2 extends StatefulWidget {
   @override
   _Homepage2State createState() => _Homepage2State();
@@ -74,6 +77,14 @@ class _Homepage2State extends State<Homepage2> {
         // TODO: 讓 BOX "並排"在一起 ， Col -> 直向
         children: <Widget>[
           // children : 放一個 list
+          Text(
+            'wallyhaha',
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+                fontStyle: FontStyle.italic), //Weight：粗細 、FontStyle :
+          ),
           Container(
             //一個 Container widdget (BOX)
             color: getColr(),
@@ -96,3 +107,23 @@ class _Homepage2State extends State<Homepage2> {
     ); //螢幕
   }
 }
+
+//---05/21-----------------------------------------------------------------//
+
+class HomePage3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //debugPaintSizeEnabled = true;
+    return Scaffold(
+        appBar: new AppBar(title: Text('wally') // 一個 Text widdget
+            ), //標題
+        body: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+                color: Colors.blueAccent, shape: BoxShape.circle) //圓形
+            )); //螢幕
+  }
+}
+
+//---------------------------------------------------------------------//
