@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 // FIXME:
 
 void main() {
-  return runApp(MaterialApp(home: new HomePage3()));
+  return runApp(MaterialApp(home: new HomePage4()));
 }
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
@@ -109,7 +109,6 @@ class _Homepage2State extends State<Homepage2> {
 }
 
 //---05/21-----------------------------------------------------------------//
-
 class HomePage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -126,4 +125,18 @@ class HomePage3 extends StatelessWidget {
   }
 }
 
-//---------------------------------------------------------------------//
+//---05/23-----Card---SizedBox------------------------------------------------------//
+class HomePage4 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Demo'),
+        ),
+        body: SizedBox(
+          child: Card(child: Text('Demo')),
+          width: 500,
+          height: 200,
+        ));
+  }
+}
