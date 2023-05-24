@@ -1,20 +1,20 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'dart:math';
-
 import 'package:flutter/rendering.dart';
 
 // TODO:
 // FIXME:
 
 void main() {
-  return runApp(MaterialApp(home: new HomePage4()));
+  return runApp(MaterialApp(home: new pratice_0524()));
 }
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
 //   ));
 
 // TODO:   StatelessWidget: 靜態的(不會改變螢幕) ，不會變動 ，不需要刷新螢幕
-class HomePage extends StatelessWidget {
+class HomePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +109,7 @@ class _Homepage2State extends State<Homepage2> {
 }
 
 //---05/21-----------------------------------------------------------------//
-class HomePage3 extends StatelessWidget {
+class pratice_0521 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //debugPaintSizeEnabled = true;
@@ -126,7 +126,7 @@ class HomePage3 extends StatelessWidget {
 }
 
 //---05/23-----Card---SizedBox------------------------------------------------------//
-class HomePage4 extends StatelessWidget {
+class pratice_0523 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,5 +138,55 @@ class HomePage4 extends StatelessWidget {
           width: 500,
           height: 200,
         ));
+  }
+}
+
+//---05/24----TextField------------------------------------------------------//
+
+class pratice_0524 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController date_controller = new TextEditingController();
+    TextEditingController name_controller = new TextEditingController();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Demooo'),
+      ),
+      body: TextField(
+          controller: date_controller,
+          // onChanged: (text) {
+          //   //一有更動馬上印出來
+          //   print('onChanged');
+          //   print(text);
+          //   print('-------');
+          // },
+          onEditingComplete: () {
+            print('onEditingComplete');
+            print(date_controller.text);
+          },
+          // onSubmitted: (text) {
+          //   //按下 Done 才會印出
+          //   print('onSubmitted');
+          //   print(text);
+          // },
+          decoration: new InputDecoration(
+              icon: Icon(Icons.calendar_today),
+              labelText: "this is date",
+              suffixIcon: Icon(Icons.password), //預設就會顯示
+              //suffix: Icon(Icons.password), // 點擊才會顯示
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                color: Colors.green,
+              )),
+              helperText: '輸入日期',
+              hintText: '請輸入日期',
+              suffix: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    FocusScope.of(context).requestFocus(
+                        new FocusNode()); //取得 TextField 的 focus，再重新給一個 focus
+                  }))),
+    );
   }
 }
