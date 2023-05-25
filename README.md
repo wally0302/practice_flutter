@@ -16,7 +16,9 @@
     - SizedBox
 ## 0524
 - TextField
-
+## 0525
+- ListView
+- ListViewBuilder
 
 ## Next schedule
 - https://www.youtube.com/watch?v=9O-2wdNhRJ0&ab_channel=YangHans
