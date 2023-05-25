@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 // FIXME:
 
 void main() {
-  return runApp(MaterialApp(home: new pratice_0524()));
+  return runApp(MaterialApp(home: new pratice_0525_ListView()));
 }
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
@@ -188,5 +188,57 @@ class pratice_0524 extends StatelessWidget {
                         new FocusNode()); //取得 TextField 的 focus，再重新給一個 focus
                   }))),
     );
+  }
+}
+
+//---05/25----ListView------ListViewbuilder---------------------------------------//
+
+class pratice_0525_ListView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ListViewDemo'),
+      ),
+      //TODO: childre: 要回傳一個 list
+      //TODO: generate: 自動產生一個陣列出來
+      body: ListView(
+          children: List.generate(20, (index) {
+        print(index);
+        // 回傳一個 widget 回去
+        return Card(
+          child: Container(
+            // Card 本身沒有大小 ，需要把它撐開來(Container)
+            //如果不給 Container 大小，會以 Parent (Card) 為 大小 -> 0
+            height: 100,
+            color: Colors.green,
+            child: Text('$index'),
+          ),
+        );
+      })),
+    );
+  }
+}
+
+class pratice_0525_ListViewbuilder extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('ListViewbuilderDemo'),
+        ),
+        body: ListView.builder(
+            //itemCount: 10, //數量
+            itemBuilder: (context, index) {
+          print(index);
+          //自動根據目前的 index 來產生 Card
+          return Card(
+            child: Container(
+              height: 100,
+              color: Colors.blue,
+              child: Text('$index'),
+            ),
+          );
+        }));
   }
 }
