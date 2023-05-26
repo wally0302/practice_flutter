@@ -14,14 +14,19 @@
 - Card Size ?
     - Container 
     - SizedBox
+
 ## 0524
 - TextField
+
 ## 0525
 - ListView
 - ListViewBuilder
 
+# 0526
+- image
+
 ## Next schedule
-- https://www.youtube.com/watch?v=9O-2wdNhRJ0&ab_channel=YangHans
+- https://www.youtube.com/watch?v=x1hWa5Sxkxk&t=690s&ab_channel=YangHans
 
 
 
