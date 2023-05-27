@@ -25,8 +25,10 @@
 # 0526
 - image
 
+# 0527
+- GridView count 
+- GridView build
 ## Next schedule
-- https://www.youtube.com/watch?v=x1hWa5Sxkxk&t=690s&ab_channel=YangHans
-
+- https://www.youtube.com/watch?v=OBZWuAfvmXY&ab_channel=YangHans
 
 

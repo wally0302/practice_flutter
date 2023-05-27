@@ -7,47 +7,47 @@ import 'package:flutter/rendering.dart';
 // FIXME:
 
 void main() {
-  return runApp(MaterialApp(home: new pratice_0526_image()));
+  runApp(pratice_0527());
 }
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
 //   ));
 
 // TODO:   StatelessWidget: 靜態的(不會改變螢幕) ，不會變動 ，不需要刷新螢幕
-class HomePage1 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(title: Text('wally') // 一個 Text widdget
-          ), //標題
+// class HomePage1 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: new AppBar(title: Text('wally') // 一個 Text widdget
+//           ), //標題
 
-      //TODO: body 只能擺一個 widget 而已 ，要放很多個要透過 "Row"
-      body: Row(
-        // TODO: 讓 BOX "並排"在一起 ， Col -> 直向
-        children: <Widget>[
-          // children : 放一個 list
-          Container(
-            //一個 Container widdget (BOX)
-            color: Colors.red,
-            width: 100.0,
-            height: 100.0,
-          ),
-          Container(
-            color: Colors.blue,
-            width: 100.0,
-            height: 100.0,
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 10.0), // 讓 Container 之間有空格
-            color: Colors.black,
-            width: 100.0,
-            height: 100.0,
-          ),
-        ],
-      ),
-    ); //螢幕
-  }
-}
+//       //TODO: body 只能擺一個 widget 而已 ，要放很多個要透過 "Row"
+//       body: Row(
+//         // TODO: 讓 BOX "並排"在一起 ， Col -> 直向
+//         children: <Widget>[
+//           // children : 放一個 list
+//           Container(
+//             //一個 Container widdget (BOX)
+//             color: Colors.red,
+//             width: 100.0,
+//             height: 100.0,
+//           ),
+//           Container(
+//             color: Colors.blue,
+//             width: 100.0,
+//             height: 100.0,
+//           ),
+//           Container(
+//             margin: EdgeInsets.only(left: 10.0), // 讓 Container 之間有空格
+//             color: Colors.black,
+//             width: 100.0,
+//             height: 100.0,
+//           ),
+//         ],
+//       ),
+//     ); //螢幕
+//   }
+// }
 
 //---05/18------------------------------------------------------------------//
 // class Homepage2 extends StatefulWidget {
@@ -244,26 +244,86 @@ class HomePage1 extends StatelessWidget {
 
 //---05/26--------image-------------------------------------------------------------------------------//
 
-class pratice_0526_image extends StatelessWidget {
-  final String Img = 'https://hackmd.io/_uploads/Hk9CIGirn.png'; //網路下載
+// class pratice_0526_image extends StatelessWidget {
+//   final String Img = 'https://hackmd.io/_uploads/Hk9CIGirn.png'; //網路下載
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('ImageDemoo'),
+//       ),
+//       // body: Image.network( //網路下載圖片
+//       //   Img,
+//       //   height: 200.0,
+//       //   alignment: Alignment.bottomCenter,//靠著底部向下對齊
+//       //   fit: BoxFit.cover,//裁切
+//       // ),
+//       body: Image.asset(
+//         'images/DSC09681.JPG',
+//         height: 500.0,
+//         alignment: Alignment.center,
+//       ),
+//     );
+//   }
+// }
 
+//---05/27----GridView count -----GridView build--------------------------------------------------------------------//
+// class pratice_0527 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final title = 'Grid List';
+
+//     return MaterialApp(
+//       title: title,
+//       home: Scaffold(
+//           appBar: AppBar(
+//             title: Text(title),
+//           ),
+//           body: GridView.count(
+//             crossAxisCount: 2, //一行有幾個
+//             childAspectRatio: 2 / 3, //高度是寬度的 1.5 倍
+//             children: List.generate(10, (index) {
+//               //產生 陣列
+//               return Card(
+//                 child: Container(
+//                   color: Colors.blue,
+//                   child: Text('Title: $index \n SubTitle:wally'),
+//                   //無法設定高度寬度，只能用 childAspectRatio 來設定
+//                 ),
+//               );
+//             }),
+//           )),
+//     );
+//   }
+// }
+
+class pratice_0527 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ImageDemoo'),
-      ),
-      // body: Image.network( //網路下載圖片
-      //   Img,
-      //   height: 200.0,
-      //   alignment: Alignment.bottomCenter,//靠著底部向下對齊
-      //   fit: BoxFit.cover,//裁切
-      // ),
-      body: Image.asset(
-        'images/DSC09681.JPG',
-        height: 500.0,
-        alignment: Alignment.center,
-      ),
+    const title = 'Grid List';
+
+    return MaterialApp(
+      title: title,
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text(title),
+          ),
+          body: GridView.builder(
+              gridDelegate:
+                  //已知一排有幾個
+                  //SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 2 / 3), //長寬比為 2/3 ，一排有兩個
+                  // 一排有幾個看螢幕寬度
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 10,
+                      childAspectRatio: 2 / 3), //寬度最大為 100，高度是寬度的 1.5 倍
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Container(
+                    color: Colors.blue,
+                    child: Text('Title: $index'),
+                  ),
+                );
+              })),
     );
   }
 }
