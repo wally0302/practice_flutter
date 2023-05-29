@@ -28,6 +28,10 @@
 # 0527
 - GridView count 
 - GridView build
+
+# 0529
+- BottomNavigationBar
+- switch screen
 ## Next schedule
 - https://www.youtube.com/watch?v=OBZWuAfvmXY&ab_channel=YangHans
 

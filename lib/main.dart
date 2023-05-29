@@ -7,8 +7,9 @@ import 'package:flutter/rendering.dart';
 // FIXME:
 
 void main() {
-  runApp(pratice_0527());
+  runApp(MyApp());
 }
+
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
 //   ));
@@ -244,7 +245,9 @@ void main() {
 
 //---05/26--------image-------------------------------------------------------------------------------//
 
-// class pratice_0526_image extends StatelessWidget {
+// 不能直接執行嗎
+
+// class MyApp extends StatelessWidget {
 //   final String Img = 'https://hackmd.io/_uploads/Hk9CIGirn.png'; //網路下載
 //   @override
 //   Widget build(BuildContext context) {
@@ -297,33 +300,157 @@ void main() {
 //   }
 // }
 
-class pratice_0527 extends StatelessWidget {
+// class pratice extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     const title = 'Grid List';
+
+//     return MaterialApp(
+//       title: title,
+//       home: Scaffold(
+//           appBar: AppBar(
+//             title: const Text(title),
+//           ),
+//           body: GridView.builder(
+//               gridDelegate:
+//                   //已知一排有幾個
+//                   //SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 2 / 3), //長寬比為 2/3 ，一排有兩個
+//                   // 一排有幾個看螢幕寬度
+//                   SliverGridDelegateWithMaxCrossAxisExtent(
+//                       maxCrossAxisExtent: 10,
+//                       childAspectRatio: 2 / 3), //寬度最大為 100，高度是寬度的 1.5 倍
+//               itemBuilder: (context, index) {
+//                 return Card(
+//                   child: Container(
+//                     color: Colors.blue,
+//                     child: Text('Title: $index'),
+//                   ),
+//                 );
+//               })),
+//     );
+//   }
+// }
+//---05/29------------------------------------------------------------------------//
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const title = 'Grid List';
-
     return MaterialApp(
-      title: title,
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text(title),
+      title: 'My App',
+      home: Practice0529(),
+    );
+  }
+}
+//TODO:用 StatelessWidge 畫面不會更新，所以要用 StatefulWidge
+
+// class Practice0529 extends StatelessWidget {
+//   int index = 0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         //超過三個要加這個，才會有文字
+//         type: BottomNavigationBarType.fixed,
+//         //點擊時要做什麼事情
+//         onTap: (int idx) {
+//           //print(idx);
+//           //接收 idx
+//           index = idx;
+//         },
+//         //預設選擇第幾個
+//         currentIndex: index,
+//         items: const [
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.home, color: Colors.black), //按下去會 print idx =0
+//             label: 'Home',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.person, color: Colors.black), // idx =1
+//             label: 'Person',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.settings, color: Colors.black), // idx =2
+//             label: 'Settings',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.close, color: Colors.red), // idx =3
+//             label: 'Close',
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+class Practice0529 extends StatefulWidget {
+  const Practice0529({super.key});
+
+  @override
+  State<Practice0529> createState() => _Practice0529State();
+}
+
+class _Practice0529State extends State<Practice0529> {
+  // index 用來記錄目前是第幾個按鈕
+  int index = 0;
+
+  //給 body 一個陣列，四顆按鈕，所以要給四個，就可以切換畫面了
+  List<Widget> page = [
+    Container(
+      color: Colors.red,
+    ),
+    Container(
+      color: Colors.blue,
+    ),
+    Container(
+      color: Colors.green,
+    ),
+    Container(
+      color: Colors.yellow,
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('0529 StatefulWidget Demo'),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        //超過三個要加這個，才會有文字
+        type: BottomNavigationBarType.fixed,
+        //點擊時要做什麼事情
+        onTap: (int idx) {
+          //print(idx);
+          //setState 會重新執行 build，所以會重新畫畫面 ->所以要用 StatefulWidget
+          setState(() {
+            //接收 idx
+            index = idx;
+          });
+        },
+        //預設選擇第幾個
+        currentIndex: index,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.black), //按下去會 print idx =0
+            label: 'Home',
           ),
-          body: GridView.builder(
-              gridDelegate:
-                  //已知一排有幾個
-                  //SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 2 / 3), //長寬比為 2/3 ，一排有兩個
-                  // 一排有幾個看螢幕寬度
-                  SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 10,
-                      childAspectRatio: 2 / 3), //寬度最大為 100，高度是寬度的 1.5 倍
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Container(
-                    color: Colors.blue,
-                    child: Text('Title: $index'),
-                  ),
-                );
-              })),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, color: Colors.black), // idx =1
+            label: 'Person',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings, color: Colors.black), // idx =2
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.close, color: Colors.red), // idx =3
+            label: 'Close',
+          ),
+        ],
+      ),
+      //告訴 body 要顯示哪一個 page
+      body: page[index],
     );
   }
 }
