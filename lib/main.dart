@@ -1,18 +1,28 @@
-import 'dart:ui';
+//import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:flutter/rendering.dart';
+//import 'dart:math';
+//import 'package:flutter/rendering.dart';
 
 // TODO:
 // FIXME:
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
 // void main() =>runApp(MaterialApp(
 //   home:new HomePage(),
 //   ));
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       title: 'My App',
+//       home: Pratice0530_1(),
+//     );
+//   }
+// }
 
 // TODO:   StatelessWidget: 靜態的(不會改變螢幕) ，不會變動 ，不需要刷新螢幕
 // class HomePage1 extends StatelessWidget {
@@ -332,15 +342,6 @@ void main() {
 // }
 //---05/29------------------------------------------------------------------------//
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My App',
-      home: Practice0529(),
-    );
-  }
-}
 //TODO:用 StatelessWidge 畫面不會更新，所以要用 StatefulWidge
 
 // class Practice0529 extends StatelessWidget {
@@ -383,74 +384,182 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
-class Practice0529 extends StatefulWidget {
-  const Practice0529({super.key});
+// class Practice0529 extends StatefulWidget {
+//   const Practice0529({super.key});
 
-  @override
-  State<Practice0529> createState() => _Practice0529State();
+//   @override
+//   State<Practice0529> createState() => _Practice0529State();
+// }
+
+// class _Practice0529State extends State<Practice0529> {
+//   // index 用來記錄目前是第幾個按鈕
+//   int index = 0;
+
+//   //給 body 一個陣列，四顆按鈕，所以要給四個，就可以切換畫面了
+//   List<Widget> page = [
+//     Container(
+//       color: Colors.red,
+//     ),
+//     Container(
+//       color: Colors.blue,
+//     ),
+//     Container(
+//       color: Colors.green,
+//     ),
+//     Container(
+//       color: Colors.yellow,
+//     ),
+//   ];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//           // title: Text('0529 StatefulWidget Demo'),
+//           ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         //超過三個要加這個，才會有文字
+//         type: BottomNavigationBarType.fixed,
+//         //點擊時要做什麼事情
+//         onTap: (int idx) {
+//           //print(idx);
+//           //setState 會重新執行 build，所以會重新畫畫面 ->所以要用 StatefulWidget
+//           setState(() {
+//             //接收 idx
+//             index = idx;
+//           });
+//         },
+//         //預設選擇第幾個
+//         currentIndex: index,
+//         items: const [
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.home, color: Colors.black), //按下去會 print idx =0
+//             label: 'Home',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.person, color: Colors.black), // idx =1
+//             label: 'Person',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.settings, color: Colors.black), // idx =2
+//             label: 'Settings',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.close, color: Colors.red), // idx =3
+//             label: 'Close',
+//           ),
+//         ],
+//       ),
+//       //告訴 body 要顯示哪一個 page
+//       body: page[index],
+//     );
+//   }
+// }
+
+//---05/30------------------------------------------------------------------------//
+
+void main() {
+  runApp(MyApp());
 }
 
-class _Practice0529State extends State<Practice0529> {
-  // index 用來記錄目前是第幾個按鈕
-  int index = 0;
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // 不是用 home，而是用 initialRoute，這樣才找的到根目錄
+      // home: Pratice0530_1(),
+      //    or
+      initialRoute: '/', //從根目錄開始
+      routes: {
+        '/': (context) {
+          return const Pratice0530_1();
+        },
+        // '/page2': (context) {
+        //   return Pratice0530_2(
+        //     key: UniqueKey(),
+        //     textData: '',
+        //   );
+        // },
+      },
+    );
+  }
+}
 
-  //給 body 一個陣列，四顆按鈕，所以要給四個，就可以切換畫面了
-  List<Widget> page = [
-    Container(
-      color: Colors.red,
-    ),
-    Container(
-      color: Colors.blue,
-    ),
-    Container(
-      color: Colors.green,
-    ),
-    Container(
-      color: Colors.yellow,
-    ),
-  ];
+// page 1
+class Pratice0530_1 extends StatefulWidget {
+  const Pratice0530_1();
 
+  @override
+  State<Pratice0530_1> createState() => _Pratice0530_1State();
+}
+
+class _Pratice0530_1State extends State<Pratice0530_1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('0529 StatefulWidget Demo'),
+        title: const Text('page 1'),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        //超過三個要加這個，才會有文字
-        type: BottomNavigationBarType.fixed,
-        //點擊時要做什麼事情
-        onTap: (int idx) {
-          //print(idx);
-          //setState 會重新執行 build，所以會重新畫畫面 ->所以要用 StatefulWidget
-          setState(() {
-            //接收 idx
-            index = idx;
+      body: Container(
+        color: Colors.red,
+      ),
+      // FloatingActionButton 會在右下角顯示一個浮動按鈕
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 如果要用下面這行，要把上面的 routes 註解掉
+
+          // 只會跳到 page2 ，但是 "沒辦法傳資料" 過去，所以要用下面的方法
+          // Navigator.pushNamed(context, '/page2'); //跳到 page2 ，會去讀取上面的 routes
+
+          //    or
+
+          //跳到 page2 ，並且把資料傳過去
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return Pratice0530_2(
+                textData: 'Hello World',
+                key: UniqueKey()); //key: UniqueKey() 這個是為了讓每次都是新的頁面
+          })).then((value) {
+            //then 會接收 page2 傳回來的資料 (因為 Navigator 是非同步，所以要用 then 等待執行完的結果)
+            print(value);
           });
         },
-        //預設選擇第幾個
-        currentIndex: index,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.black), //按下去會 print idx =0
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.black), // idx =1
-            label: 'Person',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, color: Colors.black), // idx =2
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.close, color: Colors.red), // idx =3
-            label: 'Close',
-          ),
-        ],
       ),
-      //告訴 body 要顯示哪一個 page
-      body: page[index],
     );
+  }
+}
+
+// page 2
+class Pratice0530_2 extends StatelessWidget {
+  final String textData; // 這個是要接收資料的，所以要加 final
+
+  // const Pratice0530_2({required Key key, required this.textData}) //required 一定要輸入
+  //     : super(key: key);//super(key: key) 這個是為了讓每次都是新的頁面
+
+  //      or
+
+  const Pratice0530_2(
+      //為了讓每次都是新的頁面，所以要加 key
+      {required Key key,
+      required this.textData}); //required 一定要輸入
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Page 2'),
+        ),
+        body: SizedBox.expand(
+          //讓 Container 佔滿整個畫面
+          child: Container(
+            color: Colors.green,
+            child: Text(textData),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            //Navigator.of(context).pop(); //回到上一頁，但是沒辦法傳資料過去
+            Navigator.pop(context, 'back data'); //是回到上一頁，並且把資料傳過去
+          },
+        ));
   }
 }

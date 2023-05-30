@@ -32,7 +32,13 @@
 # 0529
 - BottomNavigationBar
 - switch screen
+
+# 0530
+- page switching and return data
+- Navigator
+
+
 ## Next schedule
-- https://www.youtube.com/watch?v=OBZWuAfvmXY&ab_channel=YangHans
+- https://www.youtube.com/watch?v=UGAmBMld6xE&ab_channel=YangHans
 
 
