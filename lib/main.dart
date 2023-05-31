@@ -27,7 +27,7 @@ class Pratice0531 extends StatefulWidget {
 class _Pratice0531State extends State<Pratice0531> {
   final String host = 'https://jsonplaceholder.typicode.com/posts';
 
-  List datas = [];
+  //List datas = [];
 
   @override
   void initState() {
@@ -79,21 +79,38 @@ class _Pratice0531State extends State<Pratice0531> {
 
   @override
   Widget build(BuildContext context) {
-    getData();
     return Scaffold(
         appBar: AppBar(title: const Text('Http + FutureBuilder')),
 
-        // FutureBuilder: 用來顯示非同步的資料
-        body: ListView.builder(
-          //ListView.builder: 用來顯示 list
-          itemCount: datas.length,
-          itemBuilder: (context, index) {
-            //itemBuilder: 用來顯示每一筆資料
-            return ListTile(
-              //ListTile: 顯示每一筆資料的樣式
-              leading: Text(datas[index]['id'].toString()), //leading: 顯示在最左邊
-              title: Text(datas[index]['title']),
-              subtitle: Text(datas[index]['body']),
+        //讓編譯器知道 snap.data 的類型是 http.Response
+        body: FutureBuilder<http.Response>(
+          future: getData(), //future: 代表要等待的資料
+          //builder: 代表要顯示的畫面
+          builder: (context, snap) {
+            //snap: 代表資料的狀態
+            //snap.hasData: 代表有資料
+            if (!snap.hasData) {
+              return Container(
+                child: const Center(
+                  child: Text('Loading...'), //如果沒資料，顯示 Loading...
+                ),
+              );
+            }
+            //在非同步操作完成之前，snap.data 的值為 null
+            //但是前面已經判斷過 snap.hasData，所以不會為 null，所以要加 ! 告訴 Dart 說一定有資料
+            //snap.data!.body: 資料的內容
+            // "!": 非空斷言運算符號，告訴 Dart 一定有資料
+            List datas = jsonDecode(snap.data!.body);
+            //ListView.builder: 用來顯示 list 資料
+            return ListView.builder(
+              itemCount: datas.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Text(datas[index]['id'].toString()),
+                  title: Text(datas[index]['title']),
+                  subtitle: Text(datas[index]['body']),
+                );
+              },
             );
           },
         ));

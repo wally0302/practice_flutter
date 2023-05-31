@@ -38,9 +38,12 @@
 - Navigator
 
 ## 0531
-- 
+- json
+- http 
+- FutureBuilder
+
 
 ## Next schedule
-- https://www.youtube.com/watch?v=UGAmBMld6xE&ab_channel=YangHans
+- https://www.youtube.com/watch?v=zGxaDhWU5ZM&ab_channel=YangHans
 
 
