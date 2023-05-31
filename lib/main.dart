@@ -1,8 +1,11 @@
 //import 'dart:ui';
+
 import 'package:flutter/material.dart';
 //import 'dart:math';
 //import 'package:flutter/rendering.dart';
+import 'package:http/http.dart' as http;
 
+import 'dart:convert';
 // TODO:
 // FIXME:
 
@@ -458,6 +461,114 @@ import 'package:flutter/material.dart';
 
 //---05/30------------------------------------------------------------------------//
 
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       // 不是用 home，而是用 initialRoute，這樣才找的到根目錄
+//       // home: Pratice0530_1(),
+//       //    or
+//       initialRoute: '/', //從根目錄開始
+//       routes: {
+//         '/': (context) {
+//           return const Pratice0530_1();
+//         },
+//         // '/page2': (context) {
+//         //   return Pratice0530_2(
+//         //     key: UniqueKey(),
+//         //     textData: '',
+//         //   );
+//         // },
+//       },
+//     );
+//   }
+// }
+
+// // page 1
+// class Pratice0530_1 extends StatefulWidget {
+//   const Pratice0530_1();
+
+//   @override
+//   State<Pratice0530_1> createState() => _Pratice0530_1State();
+// }
+
+// class _Pratice0530_1State extends State<Pratice0530_1> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('page 1'),
+//       ),
+//       body: Container(
+//         color: Colors.red,
+//       ),
+//       // FloatingActionButton 會在右下角顯示一個浮動按鈕
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           // 如果要用下面這行，要把上面的 routes 註解掉
+
+//           // 只會跳到 page2 ，但是 "沒辦法傳資料" 過去，所以要用下面的方法
+//           // Navigator.pushNamed(context, '/page2'); //跳到 page2 ，會去讀取上面的 routes
+
+//           //    or
+
+//           //跳到 page2 ，並且把資料傳過去
+//           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+//             return Pratice0530_2(
+//                 textData: 'Hello World',
+//                 key: UniqueKey()); //key: UniqueKey() 這個是為了讓每次都是新的頁面
+//           })).then((value) {
+//             //then 會接收 page2 傳回來的資料 (因為 Navigator 是非同步，所以要用 then 等待執行完的結果)
+//             print(value);
+//           });
+//         },
+//       ),
+//     );
+//   }
+// }
+
+// // page 2
+// class Pratice0530_2 extends StatelessWidget {
+//   final String textData; // 這個是要接收資料的，所以要加 final
+
+//   // const Pratice0530_2({required Key key, required this.textData}) //required 一定要輸入
+//   //     : super(key: key);//super(key: key) 這個是為了讓每次都是新的頁面
+
+//   //      or
+
+//   const Pratice0530_2(
+//       //為了讓每次都是新的頁面，所以要加 key
+//       {required Key key,
+//       required this.textData}); //required 一定要輸入
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Page 2'),
+//         ),
+//         body: SizedBox.expand(
+//           //讓 Container 佔滿整個畫面
+//           child: Container(
+//             color: Colors.green,
+//             child: Text(textData),
+//           ),
+//         ),
+//         floatingActionButton: FloatingActionButton(
+//           onPressed: () {
+//             //Navigator.of(context).pop(); //回到上一頁，但是沒辦法傳資料過去
+//             Navigator.pop(context, 'back data'); //是回到上一頁，並且把資料傳過去
+//           },
+//         ));
+//   }
+// }
+
+//---05/31------------------------------------------------------------------------//
+
 void main() {
   runApp(MyApp());
 }
@@ -465,100 +576,81 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // 不是用 home，而是用 initialRoute，這樣才找的到根目錄
-      // home: Pratice0530_1(),
-      //    or
-      initialRoute: '/', //從根目錄開始
-      routes: {
-        '/': (context) {
-          return const Pratice0530_1();
-        },
-        // '/page2': (context) {
-        //   return Pratice0530_2(
-        //     key: UniqueKey(),
-        //     textData: '',
-        //   );
-        // },
-      },
+    return const MaterialApp(
+      title: 'My App',
+      home: Pratice0531(),
     );
   }
 }
 
-// page 1
-class Pratice0530_1 extends StatefulWidget {
-  const Pratice0530_1();
+class Pratice0531 extends StatefulWidget {
+  const Pratice0531({super.key});
 
   @override
-  State<Pratice0530_1> createState() => _Pratice0530_1State();
+  State<Pratice0531> createState() => _Pratice0531State();
 }
 
-class _Pratice0530_1State extends State<Pratice0530_1> {
+class _Pratice0531State extends State<Pratice0531> {
+  final String host = 'https://jsonplaceholder.typicode.com/posts';
+
+  List datas = [];
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('page 1'),
-      ),
-      body: Container(
-        color: Colors.red,
-      ),
-      // FloatingActionButton 會在右下角顯示一個浮動按鈕
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // 如果要用下面這行，要把上面的 routes 註解掉
-
-          // 只會跳到 page2 ，但是 "沒辦法傳資料" 過去，所以要用下面的方法
-          // Navigator.pushNamed(context, '/page2'); //跳到 page2 ，會去讀取上面的 routes
-
-          //    or
-
-          //跳到 page2 ，並且把資料傳過去
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return Pratice0530_2(
-                textData: 'Hello World',
-                key: UniqueKey()); //key: UniqueKey() 這個是為了讓每次都是新的頁面
-          })).then((value) {
-            //then 會接收 page2 傳回來的資料 (因為 Navigator 是非同步，所以要用 then 等待執行完的結果)
-            print(value);
-          });
-        },
-      ),
-    );
+  void initState() {
+    super.initState();
   }
-}
 
-// page 2
-class Pratice0530_2 extends StatelessWidget {
-  final String textData; // 這個是要接收資料的，所以要加 final
+  // ****** 3 種取得資料的方法 ******
 
-  // const Pratice0530_2({required Key key, required this.textData}) //required 一定要輸入
-  //     : super(key: key);//super(key: key) 這個是為了讓每次都是新的頁面
+  //http.get 回傳的是一個非同步的資料，所以要用 async(非同步) await(等待)
 
-  //      or
+  // getData() async {
+  //   //有資料回傳後才會繼續執行，如果沒有收到資料，就會一直等待
+  //   var resopnse = await http.get(Uri.parse(host)); //uri.parse 轉換網址，如果沒有轉換，會報錯
+  //   print(resopnse.body);
+  // }
+  //
+  // or
+  //
+  //這個是用 then 的方式，不用 async await
+  // getData() {
+  //   http.get(Uri.parse(host)).then((response) {
+  //     //then: 等待資料回傳
+  //     print(response.body);
+  //   });
+  // }
+  //
+  // or
+  //
+  getData() {
+    http.get(Uri.parse(host)).then((response) {
+      //print(response.body); //印出資料
 
-  const Pratice0530_2(
-      //為了讓每次都是新的頁面，所以要加 key
-      {required Key key,
-      required this.textData}); //required 一定要輸入
+      //print(datas.length);//印出資料的長度
+
+      setState(() {
+        //setState: 重新整理畫面
+        datas = jsonDecode(response.body); //jsonDecode: 將 json 轉換成 list
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Page 2'),
-        ),
-        body: SizedBox.expand(
-          //讓 Container 佔滿整個畫面
-          child: Container(
-            color: Colors.green,
-            child: Text(textData),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            //Navigator.of(context).pop(); //回到上一頁，但是沒辦法傳資料過去
-            Navigator.pop(context, 'back data'); //是回到上一頁，並且把資料傳過去
+        appBar: AppBar(title: const Text('Http + FutureBuilder')),
+        body: ListView.builder(
+          //ListView.builder: 用來顯示 list
+          itemCount: datas.length,
+          itemBuilder: (context, index) {
+            //itemBuilder: 用來顯示每一筆資料
+            return ListTile(
+              //ListTile: 顯示每一筆資料的樣式
+              leading: Text(datas[index]['id'].toString()), //leading: 顯示在最左邊
+              title: Text(datas[index]['title']),
+              subtitle: Text(datas[index]['body']),
+            );
           },
         ));
   }

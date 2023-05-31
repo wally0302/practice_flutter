@@ -22,21 +22,23 @@
 - ListView
 - ListViewBuilder
 
-# 0526
+## 0526
 - image
 
-# 0527
+## 0527
 - GridView count 
 - GridView build
 
-# 0529
+## 0529
 - BottomNavigationBar
 - switch screen
 
-# 0530
+## 0530
 - page switching and return data
 - Navigator
 
+## 0531
+- 
 
 ## Next schedule
 - https://www.youtube.com/watch?v=UGAmBMld6xE&ab_channel=YangHans
