@@ -42,8 +42,11 @@
 - http 
 - FutureBuilder
 
+## 0611 
+- sqlite
+
 
 ## Next schedule
-- https://www.youtube.com/watch?v=zGxaDhWU5ZM&ab_channel=YangHans
+- https://www.bilibili.com/video/BV1Fb411M72x/?spm_id_from=333.999.0.0
 
 
