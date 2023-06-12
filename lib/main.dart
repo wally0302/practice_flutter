@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'sqliteHelper.dart';
 
-//---06/01------------------------------------------------------------------------//
+//---06/11------------------------------------------------------------------------//
 
 void main() {
   runApp(MyApp());
@@ -14,19 +14,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'My App',
-      home: Pratice0601(),
+      home: Pratice0611(),
     );
   }
 }
 
-class Pratice0601 extends StatefulWidget {
-  const Pratice0601({super.key});
+class Pratice0611 extends StatefulWidget {
+  const Pratice0611({super.key});
 
   @override
-  State<Pratice0601> createState() => _Pratice0601State();
+  State<Pratice0611> createState() => _Pratice0611State();
 }
 
-class _Pratice0601State extends State<Pratice0601> {
+class _Pratice0611State extends State<Pratice0611> {
   final String url = 'https://jsonplaceholder.typicode.com/posts';
   final sqlHelp = sqliteHelper(); //  from  lib/sqliteHelper.dart
 
@@ -40,6 +40,7 @@ class _Pratice0601State extends State<Pratice0601> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        //按鈕，取得資料
         onPressed: () async {
           await sqlHelp.open(); //開啟資料庫
 
@@ -47,10 +48,14 @@ class _Pratice0601State extends State<Pratice0601> {
           var response = await http.get(Uri.parse(url));
           //將json轉成list
           List l = jsonDecode(response.body);
-          //將list 資料存到sqlite
-          for (var item in l) {
-            sqlHelp.insert(item);
-          }
+
+          l.forEach((e) async {
+            return await sqlHelp.insert(e);
+          });
+          // //將list 資料存到sqlite
+          // for (var item in l) {
+          //   sqlHelp.insert(item);
+          // }
           //更新畫面
           setState(() {});
         },
@@ -60,24 +65,25 @@ class _Pratice0601State extends State<Pratice0601> {
         title: const Text('Sqlite in fliutterrr'),
       ),
       body: FutureBuilder(
-        future: getAllPost(),
+        future: getAllPost(), //接收Future
         builder: (context, snapshot) {
+          //接收snapshot，因為snapshot有資料，所以要用builder
           if (snapshot.hasData) {
             List l = snapshot.data as List;
             return ListView.builder(
-              itemCount: l.length, //data 是 object，所以要轉成 List
+              itemCount: l.length, //長度
               itemBuilder: (context, index) {
+                //項目
                 return InkWell(
+                    //InkWell: 點擊效果，可以點擊，也可以設定點擊後的動作
                     onTap: () async {
+                      //點擊後的動作
                       await sqlHelp.delete(l[index]['id']);
                       setState(() {});
                     },
                     child: ListTile(
-                        //title: Text(snapshot.data![index]['title']),
                         title: Text(l[index]['title']),
-                        subtitle: Text(l[index]['body'])
-                        // subtitle: Text(snapshot.data[index]['body']),
-                        ));
+                        subtitle: Text(l[index]['body'])));
               },
             );
           }

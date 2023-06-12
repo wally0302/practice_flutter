@@ -1,15 +1,14 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 
 class sqliteHelper {
-  final Filename = 'mydb.db'; //sqlite檔案名稱
+  final Filename = 'mydb.db'; //sqlite 檔案名稱
   final table = 'mytable';
   late Database db;
   open() async {
     //因為 getDatabasesPath 是 future 所以要用 await
     String path = "${await getDatabasesPath()}/$Filename"; //sqlite檔案路徑
     db = await openDatabase(path);
+    // ignore: prefer_conditional_assignment
     if (db == null) {
       //如果db是空的就開啟，就不用每次都開新的
       // openDatabase: 開啟資料庫 、path: 資料庫路徑 、version: 資料庫版本、onCreate: 資料庫第一次建立時執行
@@ -42,6 +41,7 @@ class sqliteHelper {
   //   "body": "it is a test
   //  },
   // }
+
   //將上面的json資料存到sqlite
 
   //Map 是一種 key-value 的資料結構，key 是唯一的，value 可以重複，用來儲存資料
@@ -62,46 +62,3 @@ class sqliteHelper {
     return await db.delete(table, where: 'id = $id');
   }
 }
-
-
-
- 
-// import 'package:sqflite/sqflite.dart';
-// import 'package:path/path.dart';
-// import 'package:flutter/material.dart';
-
-// class SQLiteHelper {
-//   final String filename = 'mydb.db'; // SQLite文件名
-//   final String table = 'mytable';
-//   late Database db;
-
-//   Future<void> open() async {
-//     // 获取数据库路径
-//     String path = join(await getDatabasesPath(), filename);
-
-//     // 打开数据库，如果数据库不存在则创建
-//     db = await openDatabase(
-//       path,
-//       version: 1,
-//       onCreate: (db, version) async {
-//         // 创建表
-//         await db.execute('''
-//           CREATE TABLE $table (
-//             id INTEGER PRIMARY KEY AUTOINCREMENT,
-//             userId INTEGER,
-//             title TEXT,
-//             body TEXT
-//           );
-//         ''');
-//       },
-//     );
-//   }
-
-//   Future<void> insert(Map<String, dynamic> values) async {
-//     await db.insert(table, values);
-//   }
-
-//   Future<List<Map<String, dynamic>>> queryAll() async {
-//     return await db.query(table);
-//   }
-// }
